@@ -11,6 +11,7 @@ function Hero() {
         display: "flex",
         padding: "24px 24px",
         backgroundColor: "#1976d2",
+        marginBottom: "50px",
       }}
     >
       {/* Left side */}
