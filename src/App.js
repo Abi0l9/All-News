@@ -3,7 +3,7 @@ import Layout from "./components/Layout";
 
 function App() {
   return (
-    <Box>
+    <Box sx={{}}>
       <Layout />
     </Box>
   );

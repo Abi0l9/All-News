@@ -63,7 +63,12 @@ function Header() {
   ];
   return (
     <Box>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: "rgb(182, 181, 181)",
+        }}
+      >
         <Toolbar sx={{ py: 2 }}>
           <Box sx={{ width: "100%" }}>
             <Stack direction="row" justifyContent="space-between">
