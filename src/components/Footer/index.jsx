@@ -1,7 +1,14 @@
+import { Box } from "@mui/material";
 import React from "react";
+import Subscribe from "./Subscribe";
 
 function Footer() {
-  return <div>Footer</div>;
+  return (
+    <Box>
+      <Subscribe />
+      Footer
+    </Box>
+  );
 }
 
 export default Footer;

@@ -11,6 +11,7 @@ export const SidedContainer = styled(Box)`
 
 export const GenericOneSideBox = styled(Box)`
   width: $(({width}) => width);
+  height: $(({height}) => height);
 `;
 
 export const ViewAllButton = styled(Button)({
