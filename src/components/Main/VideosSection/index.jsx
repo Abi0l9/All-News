@@ -7,8 +7,7 @@ import {
   CardContentsBottom,
   CardHeader,
   CardVideoFrame,
-  HorizontalStack,
-  RightHorizontalStack,
+  GenericOneSideBox,
   ViewAllButton,
 } from "../../../styled";
 
@@ -30,6 +29,13 @@ const VideoFrame = styled(Box)({
   height: "500px",
   backgroundColor: "grey",
   position: "relative",
+});
+
+const RelatedVideoWrapper = styled(Box)({
+  display: "flex",
+  flexDirection: "row",
+  height: "25%",
+  gap: "10px",
 });
 
 function VideosSection() {
@@ -65,24 +71,26 @@ function VideosSection() {
             </CardContentWrapper>
           </LeftSideBox>
           <RightSideBox>
-            <Stack>
-              <HorizontalStack>
-                <LeftSideBox>
+            <Stack spacing={3}>
+              <RelatedVideoWrapper>
+                <GenericOneSideBox width={"50%"}>
                   <CardVideoFrame />
-                </LeftSideBox>
-                <RightHorizontalStack>
-                  <CardContentWrapper>
-                    <CardHeader>
-                      Some header goes to the heresss fgf gdd masteer mastr nnaj
-                      bajja hja
-                    </CardHeader>
+                </GenericOneSideBox>
+                <GenericOneSideBox width={"50%"}>
+                  <Stack spacing={2}>
+                    <Box>
+                      <CardHeader>
+                        Some header goes taas sss do the heresss fgf gdd masteer
+                        mastr nnaj bajja hja
+                      </CardHeader>
+                    </Box>
                     <CardContentsBottom>
                       <Typography>Author</Typography>
                       <Typography>2 hours Ago</Typography>
                     </CardContentsBottom>
-                  </CardContentWrapper>
-                </RightHorizontalStack>
-              </HorizontalStack>
+                  </Stack>
+                </GenericOneSideBox>
+              </RelatedVideoWrapper>
             </Stack>
           </RightSideBox>
         </VideosSectionBox>

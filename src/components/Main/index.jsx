@@ -3,6 +3,7 @@ import React from "react";
 import Hero from "./Hero";
 import LatestPost from "./LatestPost";
 import VideosSection from "./VideosSection";
+import RecommendedVideos from "./RecommendedVideos";
 
 function Main() {
   return (
@@ -10,6 +11,7 @@ function Main() {
       <Hero />
       <LatestPost />
       <VideosSection />
+      <RecommendedVideos />
     </Box>
   );
 }
