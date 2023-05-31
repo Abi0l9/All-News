@@ -1,8 +1,8 @@
-import { Box, Button, Link, Stack, Typography } from "@mui/material";
-import { deepOrange } from "@mui/material/colors";
+import { Box, Link, Stack, Typography } from "@mui/material";
 import React from "react";
 import IMG from "../../../assets/img/error 2.jpg";
 import "./index.css";
+import { ViewAllButton } from "../../../styled";
 
 function LatestPost() {
   return (
@@ -23,9 +23,7 @@ function LatestPost() {
             </Typography>
           </Box>
           <Box>
-            <Button color="inherit" sx={{ bgcolor: deepOrange[500] }}>
-              View All
-            </Button>
+            <ViewAllButton>View All</ViewAllButton>
           </Box>
         </Stack>
       </Box>
