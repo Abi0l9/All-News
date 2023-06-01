@@ -1,8 +1,17 @@
 import { Box } from "@mui/material";
 import Layout from "./components/Layout";
+import newsServices from "./services";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getAllHeadlines } from "./reducers/headlineReducer";
 
 function App() {
-  console.log("key iss :" + process.env.REACT_APP_API_KEY);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllHeadlines());
+  }, [dispatch]);
+
   return (
     <Box sx={{}}>
       <Layout />
