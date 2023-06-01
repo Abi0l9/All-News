@@ -77,7 +77,7 @@ function VideosSection() {
           </LeftSideBox>
           <RightSideBox>
             <Stack spacing={3}>
-              {threeOfFour.map((vid, idx) => (
+              {threeOfFour?.map((vid, idx) => (
                 <RelatedVideoWrapper key={idx}>
                   <GenericOneSideBox width={"50%"}>
                     <CardVideoFrame

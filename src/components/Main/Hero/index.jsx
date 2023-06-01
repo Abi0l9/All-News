@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Link, Stack, Typography } from "@mui/material";
 import React from "react";
 import "./Hero.css";
 import { useSelector } from "react-redux";
@@ -28,7 +28,13 @@ function Hero() {
         </Stack>
         <Box sx={{ width: "100%", mb: "100px", paddingRight: "50px" }}>
           <Typography variant="h3" paddingRight="80px">
-            {topHeadline?.title}
+            <Link
+              underline="hover"
+              color="white"
+              href={`/news/${topHeadline?.title}`}
+            >
+              {topHeadline?.title}
+            </Link>
           </Typography>
         </Box>
         <Box>
@@ -40,7 +46,13 @@ function Hero() {
                 </Box>
                 <Box>
                   <Typography variant="body" fontWeight="bold">
-                    {headline?.title}
+                    <Link
+                      underline="hover"
+                      color="white"
+                      href={`/news/${headline?.title}`}
+                    >
+                      {headline?.title}
+                    </Link>
                   </Typography>
                 </Box>
               </Stack>
@@ -69,7 +81,15 @@ function Hero() {
                       {timeReleased(headline?.publishedAt)}
                     </Typography>
                   </Stack>
-                  <Typography fontWeight="bold">{headline?.title}</Typography>
+                  <Typography fontWeight="bold">
+                    <Link
+                      underline="hover"
+                      color="white"
+                      href={`/news/${headline?.title}`}
+                    >
+                      {headline?.title}
+                    </Link>
+                  </Typography>
                 </Box>
               </Stack>
             ))}

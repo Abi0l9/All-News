@@ -1,7 +1,7 @@
 import {
   Facebook,
   Instagram,
-  More,
+  Newspaper,
   Search,
   Twitter,
   YouTube,
@@ -15,6 +15,7 @@ import {
   Toolbar,
   Button,
   Typography,
+  Link,
 } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import React from "react";
@@ -76,7 +77,6 @@ function Header() {
                 {pages.map((page) => (
                   <Box key={page.name}>{page.name}</Box>
                 ))}
-                <More />
               </Stack>
               <Stack direction="row" spacing={1} sx={{ cursor: "pointer" }}>
                 <Facebook />
@@ -93,7 +93,11 @@ function Header() {
 
             <Stack direction="row" alignItems="center">
               <Typography variant="h6" sx={{ mr: 1, cursor: "pointer" }}>
-                LogoIpsum
+                <Link underline="none" href="/">
+                  <IconButton>
+                    <Newspaper />
+                  </IconButton>
+                </Link>
               </Typography>
               <Box sx={{ display: "flex", flex: 1 }}>
                 {tabs.map((tab) => (

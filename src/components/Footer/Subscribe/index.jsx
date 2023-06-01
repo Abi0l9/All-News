@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
-import { Box, Button, TextField, Typography } from "@mui/material";
-import React from "react";
+import { Box, Typography } from "@mui/material";
+import React, { useState } from "react";
 import { HorizontalStack, ViewAllButton } from "../../../styled";
+import SubModal from "./Submodal.jsx";
 
 const SubscribeWrapper = styled(Box)({
   backgroundColor: "#1976d2",
@@ -10,8 +11,19 @@ const SubscribeWrapper = styled(Box)({
 });
 
 function Subscribe() {
+  const [email, setEmail] = useState("");
+  const [modalState, setModalState] = useState(false);
+
+  const handleModalState = () => {
+    setModalState(!modalState);
+    setEmail("");
+  };
+
   return (
     <Box sx={{ padding: "24px" }}>
+      <Box sx={{ margin: "0 auto", width: "50%" }}>
+        <SubModal modalState={modalState} handleModalState={handleModalState} />
+      </Box>
       <SubscribeWrapper>
         <HorizontalStack
           sx={{
@@ -43,14 +55,26 @@ function Subscribe() {
         >
           <form style={{ display: "flex", flexDirection: "row" }}>
             <input
+              type="email"
+              required
               style={{
                 flexGrow: 1,
                 borderRadius: ".4rem",
                 border: "0 solid white",
                 marginRight: "5px",
               }}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <ViewAllButton>Subscribe Now</ViewAllButton>
+            {!email ? (
+              <ViewAllButton disabled onClick={handleModalState}>
+                Subscribe Now
+              </ViewAllButton>
+            ) : (
+              <ViewAllButton onClick={handleModalState}>
+                Subscribe Now
+              </ViewAllButton>
+            )}
           </form>
         </Box>
       </SubscribeWrapper>

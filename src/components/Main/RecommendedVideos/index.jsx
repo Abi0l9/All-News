@@ -1,6 +1,7 @@
 import { Box, Pagination, Typography, styled } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { BadgeContent, BottomBadge, HorizontalStack } from "../../../styled";
+import { useSelector } from "react-redux";
 
 const VideoFrame = styled(Box)({
   width: "48%",
@@ -10,13 +11,16 @@ const VideoFrame = styled(Box)({
 });
 
 function RecommendedVideos() {
+  const headlines = useSelector((store) => store.headlines);
+  const pages = headlines?.articles?.slice(4, 19);
+  const count = !pages?.length ? 0 : Math.floor(pages?.length / 2);
   const [page, setPage] = useState(1);
-  const [pages, setPages] = useState([]);
-  const [pageToShow, setPageToShow] = useState([pages[0], pages[1]]);
+  const [pageToShow, setPageToShow] = useState([]);
 
   useEffect(() => {
-    const p = [1, 2, 3, 4, 5, 6];
-    setPages(p);
+    if (pages) {
+      setPageToShow(pages?.slice(0, 2));
+    }
   }, []);
 
   const handlePagination = (e, value) => {
@@ -24,8 +28,10 @@ function RecommendedVideos() {
 
     const leftPage = value * 2 - 1;
     const rightPage = value * 2;
-    setPageToShow([pages[leftPage - 1], rightPage]);
+    setPageToShow([pages?.at(leftPage), pages?.at(rightPage)]);
   };
+
+  if (!pages?.length) return null;
 
   return (
     <Box
@@ -41,7 +47,7 @@ function RecommendedVideos() {
         </Box>
         <Box>
           <Pagination
-            count={Math.floor(pages.length / 2)}
+            count={count}
             shape="rounded"
             color="primary"
             page={page}
@@ -51,8 +57,14 @@ function RecommendedVideos() {
       </HorizontalStack>
       <HorizontalStack>
         {pageToShow.map((p, i) => (
-          <VideoFrame key={i}>
-            {p}
+          <VideoFrame
+            key={i}
+            sx={{
+              backgroundImage: `url(${p?.urlToImage})`,
+              objectFit: "cover",
+              backgroundSize: "100%",
+            }}
+          >
             <BottomBadge>
               <BadgeContent>Category</BadgeContent>
             </BottomBadge>

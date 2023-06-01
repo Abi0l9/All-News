@@ -54,7 +54,7 @@ function LatestPost() {
               <Stack>
                 <Box>
                   <Link href="" underline="none" sx={{ cursor: "pointer" }}>
-                    <Typography variant="h5" sx={{ my: "10px" }}>
+                    <Typography fontWeight="bold" sx={{ my: "10px" }}>
                       {post?.title}
                     </Typography>
                   </Link>
