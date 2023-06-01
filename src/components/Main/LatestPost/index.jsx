@@ -1,10 +1,14 @@
 import { Box, Link, Stack, Typography } from "@mui/material";
 import React from "react";
-import IMG from "../../../assets/img/error 2.jpg";
 import "./index.css";
 import { ViewAllButton } from "../../../styled";
+import { useSelector } from "react-redux";
+import { timeReleased } from "../../../utils";
 
 function LatestPost() {
+  const headlines = useSelector((store) => store.headlines);
+  const latest = headlines?.articles?.slice(0, 8);
+
   return (
     <Box
       sx={{
@@ -33,36 +37,38 @@ function LatestPost() {
           flexDirection: "row",
           justifyContent: "space-between",
           flexWrap: "wrap",
-          gap: "20px",
+          gap: "5px",
         }}
       >
-        <Box className="card">
-          <img src={`${IMG}`} alt="sss" />
-          <Box className="img-card">
-            <Box className="img-badge">
-              <Typography component="span" color="azure">
-                Category
-              </Typography>
+        {latest?.map((post) => (
+          <Box className="card" key={post?.title}>
+            <img src={`${post?.urlToImage}`} alt={post?.title} />
+            <Box className="img-card">
+              <Box className="img-badge">
+                <Typography component="span" color="azure">
+                  Category
+                </Typography>
+              </Box>
+            </Box>
+            <Box>
+              <Stack>
+                <Box>
+                  <Link href="" underline="none" sx={{ cursor: "pointer" }}>
+                    <Typography variant="h5" sx={{ my: "10px" }}>
+                      {post?.title}
+                    </Typography>
+                  </Link>
+                </Box>
+                <Box>
+                  <Stack direction="row" spacing={3} color="GrayText">
+                    <Typography>{post?.author}</Typography>
+                    <Typography>{timeReleased(post?.publishedAt)}</Typography>
+                  </Stack>
+                </Box>
+              </Stack>
             </Box>
           </Box>
-          <Box>
-            <Stack>
-              <Box>
-                <Link href="" underline="none" sx={{ cursor: "pointer" }}>
-                  <Typography variant="h5" sx={{ my: "10px" }}>
-                    Some lorem ipsum headline will go here and flow to next line
-                  </Typography>
-                </Link>
-              </Box>
-              <Box>
-                <Stack direction="row" spacing={3} color="GrayText">
-                  <Typography>Author name</Typography>
-                  <Typography>3 Days Ago</Typography>
-                </Stack>
-              </Box>
-            </Stack>
-          </Box>
-        </Box>
+        ))}
       </Box>
     </Box>
   );
