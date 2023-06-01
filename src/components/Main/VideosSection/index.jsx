@@ -10,6 +10,8 @@ import {
   GenericOneSideBox,
   ViewAllButton,
 } from "../../../styled";
+import { useSelector } from "react-redux";
+import { timeReleased } from "../../../utils";
 
 const VideosSectionBox = styled(Stack)({
   justifyContent: "space-between",
@@ -39,6 +41,10 @@ const RelatedVideoWrapper = styled(Box)({
 });
 
 function VideosSection() {
+  const headlines = useSelector((store) => store.headlines);
+  const randomFour = headlines?.articles?.slice(10, 14);
+  const oneOfFour = randomFour?.at(0);
+  const threeOfFour = randomFour?.slice(1);
   return (
     <Box id="videos-section" sx={{ padding: "50px 24px" }}>
       <Box>
@@ -54,43 +60,45 @@ function VideosSection() {
       <Box>
         <VideosSectionBox>
           <LeftSideBox>
-            <VideoFrame>
+            <VideoFrame
+              sx={{ backgroundImage: `url(${oneOfFour?.urlToImage})` }}
+            >
               <BottomBadge>
                 <BadgeContent>Category</BadgeContent>
               </BottomBadge>
             </VideoFrame>
             <CardContentWrapper>
-              <CardHeader>
-                Some Lorem Ipsum Text comes here Some Lorem Ipsum Text comes
-                here Some Lorem Ipsum Text comes here
-              </CardHeader>
+              <CardHeader>{oneOfFour?.title}</CardHeader>
               <CardContentsBottom>
-                <Typography>Author</Typography>
-                <Typography>2 hours Ago</Typography>
+                <Typography>{oneOfFour?.author}</Typography>
+                <Typography>{timeReleased(oneOfFour?.publishedAt)}</Typography>
               </CardContentsBottom>
             </CardContentWrapper>
           </LeftSideBox>
           <RightSideBox>
             <Stack spacing={3}>
-              <RelatedVideoWrapper>
-                <GenericOneSideBox width={"50%"}>
-                  <CardVideoFrame />
-                </GenericOneSideBox>
-                <GenericOneSideBox width={"50%"}>
-                  <Stack spacing={2}>
-                    <Box>
-                      <CardHeader>
-                        Some header goes taas sss do the heresss fgf gdd masteer
-                        mastr nnaj bajja hja
-                      </CardHeader>
-                    </Box>
-                    <CardContentsBottom>
-                      <Typography>Author</Typography>
-                      <Typography>2 hours Ago</Typography>
-                    </CardContentsBottom>
-                  </Stack>
-                </GenericOneSideBox>
-              </RelatedVideoWrapper>
+              {threeOfFour.map((vid, idx) => (
+                <RelatedVideoWrapper key={idx}>
+                  <GenericOneSideBox width={"50%"}>
+                    <CardVideoFrame
+                      sx={{ backgroundImage: `url(${vid?.urlToImage})` }}
+                    />
+                  </GenericOneSideBox>
+                  <GenericOneSideBox width={"50%"}>
+                    <Stack spacing={2}>
+                      <Box>
+                        <CardHeader>{vid?.title}</CardHeader>
+                      </Box>
+                      <CardContentsBottom>
+                        <Typography>{vid?.author}</Typography>
+                        <Typography>
+                          {timeReleased(vid?.publishedAt)}
+                        </Typography>
+                      </CardContentsBottom>
+                    </Stack>
+                  </GenericOneSideBox>
+                </RelatedVideoWrapper>
+              ))}
             </Stack>
           </RightSideBox>
         </VideosSectionBox>
