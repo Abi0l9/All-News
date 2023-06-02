@@ -9,16 +9,13 @@ import {
   Typography,
   Link,
   styled,
+  TextField,
+  Autocomplete,
 } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
-import React from "react";
-
-const MobileView = styled(Box)(({ theme }) => ({
-  display: "block",
-  [theme.breakpoints.up("sm")]: {
-    display: "none",
-  },
-}));
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getRetrievedSources } from "../../reducers/retrievedSourceReducer";
 
 const MobileViewFlex = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -44,15 +41,27 @@ const PcViewFlex = styled(Stack)(({ theme }) => ({
 }));
 
 function Header() {
+  const dispatch = useDispatch();
+  const sources = useSelector((store) => store.sources);
+
+  const filteredSources = sources?.sources
+    ?.filter((source) => source.country === "us")
+    .map((source) => source.name);
+
+  const [openSearch, setOpenSearch] = useState(false);
+  const [value, setValue] = useState("ABC News");
+  const [inputValue, setInputValue] = useState("");
+
+  const handleSearchClick = () => {
+    setOpenSearch(!openSearch);
+  };
+
   const tabs = [
     {
       name: "Home",
     },
     {
-      name: "Feature",
-    },
-    {
-      name: "Shop",
+      name: "Latest News",
     },
   ];
   return (
@@ -93,7 +102,7 @@ function Header() {
                 ))}
               </PcViewFlex>
               <Stack direction="row" alignItems="center">
-                <IconButton>
+                <IconButton onClick={handleSearchClick}>
                   <Search color="inherit" />
                 </IconButton>
                 <Button
@@ -109,6 +118,26 @@ function Header() {
             </Stack>
           </Box>
         </Toolbar>
+        <Box
+          sx={{ display: openSearch ? "block" : "none", margin: "5px auto" }}
+        >
+          <Autocomplete
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            inputValue={inputValue}
+            onInputChange={(event, newInputValue) => {
+              setInputValue(newInputValue);
+              dispatch(getRetrievedSources(newInputValue));
+            }}
+            onClick={() => console.log("clicked")}
+            options={filteredSources}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} />}
+            label="Select or type a source"
+          />
+        </Box>
       </AppBar>
     </Box>
   );

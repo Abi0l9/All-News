@@ -23,11 +23,21 @@ const getHeadlines = async () => {
 
 const getNewsBySources = async () => {
   const config = setConfig();
-  const request = await axios.get(`${baseUrl}/top-headlines/sources`, config);
+  const request = await axios.get(`${baseUrl}/top-headlines/sources/`, config);
+  return request.data;
+};
+
+const getEverything = async (source) => {
+  const config = setConfig();
+  const request = await axios.get(
+    `${baseUrl}/everything?sources=${source}`,
+    config
+  );
   return request.data;
 };
 
 export default {
   getHeadlines,
   getNewsBySources,
+  getEverything,
 };

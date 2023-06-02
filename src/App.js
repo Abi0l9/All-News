@@ -5,6 +5,7 @@ import { useMatch } from "react-router-dom";
 import { useEffect } from "react";
 import { getAllHeadlines } from "./reducers/headlineReducer";
 import { getSelectedNews } from "./reducers/selectedNewsReducer";
+import { getAllSources } from "./reducers/sourcesReducer";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +20,10 @@ function App() {
 
   useEffect(() => {
     dispatch(getAllHeadlines());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getAllSources());
   }, [dispatch]);
 
   useEffect(() => {

@@ -17,8 +17,6 @@ export const getAllHeadlines = () => {
   return async (dispatch) => {
     const data = await newsServices.getHeadlines();
 
-    // console.log(newsServices.getNewsBySources());
-    console.log(data);
     dispatch(getHeadlines(data));
   };
 };
