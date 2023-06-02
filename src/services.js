@@ -21,6 +21,13 @@ const getHeadlines = async () => {
   return request.data;
 };
 
+const getNewsBySources = async () => {
+  const config = setConfig();
+  const request = await axios.get(`${baseUrl}/top-headlines/sources`, config);
+  return request.data;
+};
+
 export default {
   getHeadlines,
+  getNewsBySources,
 };

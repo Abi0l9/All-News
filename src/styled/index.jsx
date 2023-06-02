@@ -77,3 +77,49 @@ export const VideoHorizontalStack = styled(Stack)({
   justifyContent: "space-between",
   marginBottom: "15px",
 });
+
+export const MobileView = styled(Box)(({ theme }) => ({
+  display: "block",
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
+}));
+
+export const MobileViewHorizontal = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
+}));
+
+export const MobileViewVertical = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
+}));
+
+export const PcView = styled(Stack)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.up("sm")]: {
+    display: "block",
+  },
+}));
+
+export const PcViewHorizontal = styled(Stack)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.up("sm")]: {
+    display: "flex",
+    flexDirection: "row",
+  },
+}));
+
+export const PcViewVertical = styled(Stack)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.up("sm")]: {
+    display: "flex",
+    flexDirection: "column",
+  },
+}));

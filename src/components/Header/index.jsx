@@ -1,44 +1,49 @@
-import {
-  Facebook,
-  Instagram,
-  Newspaper,
-  Search,
-  Twitter,
-  YouTube,
-} from "@mui/icons-material";
+import { Newspaper, Search } from "@mui/icons-material";
 import {
   AppBar,
   Box,
-  Divider,
   IconButton,
   Stack,
   Toolbar,
   Button,
   Typography,
   Link,
+  styled,
 } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import React from "react";
 
-function Header() {
-  const pages = [
-    {
-      name: "News",
-    },
-    {
-      name: "Innovation",
-    },
-    {
-      name: "Science",
-    },
-    {
-      name: "Industry",
-    },
-    {
-      name: "More",
-    },
-  ];
+const MobileView = styled(Box)(({ theme }) => ({
+  display: "block",
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
+}));
 
+const MobileViewFlex = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
+}));
+
+const PcView = styled(Stack)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.up("sm")]: {
+    display: "block",
+  },
+}));
+
+const PcViewFlex = styled(Stack)(({ theme }) => ({
+  flexDirection: "row",
+  display: "none",
+  [theme.breakpoints.up("sm")]: {
+    display: "flex",
+  },
+}));
+
+function Header() {
   const tabs = [
     {
       name: "Home",
@@ -49,63 +54,44 @@ function Header() {
     {
       name: "Shop",
     },
-    {
-      name: "Gallery",
-    },
-    {
-      name: "Blog",
-    },
-    {
-      name: "About",
-    },
-    {
-      name: "Contact",
-    },
   ];
   return (
     <Box>
       <AppBar
         position="static"
         sx={{
-          backgroundColor: "rgb(182, 181, 181)",
+          backgroundColor: "white",
+          color: "darkslategray",
         }}
       >
         <Toolbar sx={{ py: 2 }}>
           <Box sx={{ width: "100%" }}>
-            <Stack direction="row" justifyContent="space-between">
-              <Stack direction="row" spacing={3} sx={{ cursor: "pointer" }}>
-                {pages.map((page) => (
-                  <Box key={page.name}>{page.name}</Box>
-                ))}
-              </Stack>
-              <Stack direction="row" spacing={1} sx={{ cursor: "pointer" }}>
-                <Facebook />
-                <Twitter />
-                <Instagram />
-                <YouTube />
-              </Stack>
-            </Stack>
-
-            <Divider
-              sx={{ bgcolor: "navajowhite", mt: 1 }}
-              variant="fullWidth"
-            />
-
             <Stack direction="row" alignItems="center">
-              <Typography variant="h6" sx={{ mr: 1, cursor: "pointer" }}>
+              <PcView>
+                <Typography
+                  variant="h6"
+                  fontWeight="bold"
+                  sx={{ mr: 1, cursor: "pointer" }}
+                >
+                  <Link underline="none" href="/" color="error">
+                    24/7 News
+                  </Link>
+                </Typography>
+              </PcView>
+              <MobileViewFlex sx={{ flex: 1 }}>
                 <Link underline="none" href="/">
                   <IconButton>
                     <Newspaper />
                   </IconButton>
                 </Link>
-              </Typography>
-              <Box sx={{ display: "flex", flex: 1 }}>
+              </MobileViewFlex>
+              <PcViewFlex sx={{ flex: 1 }}>
                 {tabs.map((tab) => (
                   <Box sx={{ mx: 1, cursor: "pointer" }} key={tab.name}>
                     {tab.name}
                   </Box>
                 ))}
-              </Box>
+              </PcViewFlex>
               <Stack direction="row" alignItems="center">
                 <IconButton>
                   <Search color="inherit" />
@@ -115,14 +101,12 @@ function Header() {
                   color="inherit"
                   sx={{ bgcolor: deepOrange[500], height: "30px" }}
                 >
-                  Subscribe
+                  <Link color="inherit" underline="none" href="#subscribe">
+                    Subscribe
+                  </Link>
                 </Button>
               </Stack>
             </Stack>
-            <Divider
-              sx={{ bgcolor: "navajowhite", mb: 1 }}
-              variant="fullWidth"
-            />
           </Box>
         </Toolbar>
       </AppBar>

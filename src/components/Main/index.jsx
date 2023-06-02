@@ -9,9 +9,9 @@ function Main() {
   return (
     <Box>
       <Hero />
-      <LatestPost />
+      {/* <LatestPost />
       <VideosSection />
-      <RecommendedVideos />
+      <RecommendedVideos /> */}
     </Box>
   );
 }

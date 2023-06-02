@@ -1,67 +1,143 @@
-import { Box, Link, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Link,
+  Stack,
+  ThemeProvider,
+  Typography,
+  createTheme,
+  styled,
+} from "@mui/material";
 import React from "react";
 import "./Hero.css";
 import { useSelector } from "react-redux";
 import { timeReleased } from "../../../utils";
+import { MobileViewVertical } from "../../../styled";
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      sm: 830,
+    },
+  },
+});
+
+const HeroSectionWrapper = styled(Box)({
+  padding: "24px 24px",
+  marginBottom: "50px",
+});
+
+export const PcViewHorizontal = styled(Stack)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.up("sm")]: {
+    display: "flex",
+    flexDirection: "row",
+  },
+}));
 
 function Hero() {
   const headlines = useSelector((store) => store.headlines);
   const topHeadline = headlines?.articles?.at(0);
   const topThreeHeadlines = headlines?.articles?.slice(1, 3);
-  const nextFive = headlines?.articles?.slice(3, 8);
+  // const nextFive = headlines?.articles?.slice(3, 8);
 
   return (
-    <Box
-      id="hero"
-      sx={{
-        display: "flex",
-        padding: "24px 24px",
-        backgroundColor: "#1976d2",
-        marginBottom: "50px",
-      }}
-    >
-      {/* Left side */}
-      <Box id="left">
-        <Stack direction="row" spacing={2} my="10px" mb="20px">
-          <Typography>News</Typography>
-          <Typography>{timeReleased(topHeadline?.publishedAt)}</Typography>
-        </Stack>
-        <Box sx={{ width: "100%", mb: "100px", paddingRight: "50px" }}>
-          <Typography variant="h3" paddingRight="80px">
-            <Link
-              underline="hover"
-              color="white"
-              href={`/news/${topHeadline?.title}`}
-            >
+    <ThemeProvider theme={theme}>
+      <HeroSectionWrapper>
+        <PcViewHorizontal justifyContent="space-between" height="300px">
+          <Box
+            sx={{
+              width: "48%",
+            }}
+          >
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "20px",
+                backgroundImage: `url(${topHeadline?.urlToImage})`,
+                backgroundSize: "100%",
+                objectFit: "cover",
+              }}
+            ></Box>
+          </Box>
+          <Box sx={{ width: "48%", height: "100%" }}>
+            <Stack spacing={2}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Typography fontWeight="bold">
+                  <Link underline="hover" color="black">
+                    {topHeadline?.author}
+                  </Link>
+                </Typography>
+                <Typography color="GrayText" marginX={2}>
+                  {timeReleased(topHeadline?.publishedAt)}
+                </Typography>
+              </Box>
+
+              <Typography variant="h5" fontWeight="bold">
+                <Link underline="hover" color="black">
+                  {topHeadline?.title}
+                </Link>
+              </Typography>
+
+              <Typography variant="p">{topHeadline?.description}</Typography>
+            </Stack>
+          </Box>
+        </PcViewHorizontal>
+        <MobileViewVertical alignItems="center" height="70vh">
+          <Typography variant="h5" fontWeight="bold">
+            <Link underline="hover" color="black">
               {topHeadline?.title}
             </Link>
           </Typography>
-        </Box>
-        <Box>
-          <Stack direction="row" spacing={2} sx={{ paddingRight: "50px" }}>
-            {topThreeHeadlines?.map((headline, idx) => (
-              <Stack spacing={1} key={idx}>
-                <Box sx={{ borderRadius: "5px" }} className="hero-card-img">
-                  <img alt={headline?.title} src={`${headline.urlToImage}`} />
-                </Box>
-                <Box>
-                  <Typography variant="body" fontWeight="bold">
-                    <Link
-                      underline="hover"
-                      color="white"
-                      href={`/news/${headline?.title}`}
-                    >
-                      {headline?.title}
+          <Box sx={{ height: "70%", width: "100%", my: 2 }}>
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "20px",
+                backgroundImage: `url(${topHeadline?.urlToImage})`,
+                backgroundSize: "100%",
+                objectFit: "cover",
+              }}
+            ></Box>
+            <Box sx={{ height: "30%", weight: "100%", my: 2 }}>
+              <Stack spacing={2}>
+                <Typography variant="p">{topHeadline?.description}</Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography fontWeight="bold">
+                    <Link underline="hover" color="black">
+                      {topHeadline?.author}
                     </Link>
+                  </Typography>
+                  <Typography color="GrayText" marginX={2}>
+                    {timeReleased(topHeadline?.publishedAt)}
                   </Typography>
                 </Box>
               </Stack>
-            ))}
-          </Stack>
-        </Box>
-      </Box>
-      {/* Right Side */}
-      <Box id="right">
+            </Box>
+          </Box>
+        </MobileViewVertical>
+      </HeroSectionWrapper>
+    </ThemeProvider>
+  );
+}
+
+export default Hero;
+
+{
+  /* <Box id="right">
         <Box id="right-content">
           <Box>
             <Typography textAlign="left" variant="h6">
@@ -95,9 +171,5 @@ function Hero() {
             ))}
           </Box>
         </Box>
-      </Box>
-    </Box>
-  );
+      </Box> */
 }
-
-export default Hero;

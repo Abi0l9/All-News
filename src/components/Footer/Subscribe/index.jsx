@@ -20,7 +20,7 @@ function Subscribe() {
   };
 
   return (
-    <Box sx={{ padding: "24px" }}>
+    <Box id="subscribe" sx={{ padding: "24px" }}>
       <Box sx={{ margin: "0 auto", width: "50%" }}>
         <SubModal modalState={modalState} handleModalState={handleModalState} />
       </Box>
