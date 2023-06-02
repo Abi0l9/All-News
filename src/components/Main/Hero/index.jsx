@@ -37,8 +37,6 @@ export const PcViewHorizontal = styled(Stack)(({ theme }) => ({
 function Hero() {
   const headlines = useSelector((store) => store.headlines);
   const topHeadline = headlines?.articles?.at(0);
-  const topThreeHeadlines = headlines?.articles?.slice(1, 3);
-  // const nextFive = headlines?.articles?.slice(3, 8);
 
   return (
     <ThemeProvider theme={theme}>
@@ -56,7 +54,7 @@ function Hero() {
                 borderRadius: "20px",
                 backgroundImage: `url(${topHeadline?.urlToImage})`,
                 backgroundSize: "100%",
-                objectFit: "cover",
+                objectFit: "contain",
               }}
             ></Box>
           </Box>
@@ -106,9 +104,16 @@ function Hero() {
                 objectFit: "cover",
               }}
             ></Box>
-            <Box sx={{ height: "30%", weight: "100%", my: 2 }}>
+            <Box sx={{ height: "30%", width: "100%", my: 2 }}>
               <Stack spacing={2}>
-                <Typography variant="p">{topHeadline?.description}</Typography>
+                <Typography
+                  textOverflow="ellipsis"
+                  overflow="hidden"
+                  noWrap
+                  variant="p"
+                >
+                  {topHeadline?.description}
+                </Typography>
                 <Box
                   sx={{
                     display: "flex",
@@ -135,41 +140,3 @@ function Hero() {
 }
 
 export default Hero;
-
-{
-  /* <Box id="right">
-        <Box id="right-content">
-          <Box>
-            <Typography textAlign="left" variant="h6">
-              Popular this week
-            </Typography>
-          </Box>
-          <Box>
-            {nextFive?.map((headline, idx) => (
-              <Stack direction="row" spacing={1} key={idx}>
-                <Box>
-                  <img src={`${headline?.urlToImage}`} alt={headline?.title} />
-                </Box>
-                <Box>
-                  <Stack direction="row" spacing={3}>
-                    <Typography>Category</Typography>
-                    <Typography>
-                      {timeReleased(headline?.publishedAt)}
-                    </Typography>
-                  </Stack>
-                  <Typography fontWeight="bold">
-                    <Link
-                      underline="hover"
-                      color="white"
-                      href={`/news/${headline?.title}`}
-                    >
-                      {headline?.title}
-                    </Link>
-                  </Typography>
-                </Box>
-              </Stack>
-            ))}
-          </Box>
-        </Box>
-      </Box> */
-}
