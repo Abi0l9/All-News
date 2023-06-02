@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import "./index.css";
-import { MobileView, ViewAllButton } from "../../../styled";
+import { ViewAllButton } from "../../../styled";
 import { useSelector } from "react-redux";
 import { timeReleased } from "../../../utils";
 
@@ -42,7 +42,8 @@ function LatestPost() {
       >
         <Box
           sx={{
-            margin: "15px 0",
+            margin: "30px 0",
+            mt: "100px",
           }}
         >
           <Stack direction="row" justifyContent="space-between">
@@ -68,7 +69,8 @@ function LatestPost() {
             gap: "5px",
             width: "100%",
             height: {
-              sm: "800px",
+              xs: "800px",
+              sm: "1000px",
             },
           }}
         >
@@ -80,35 +82,47 @@ function LatestPost() {
                   xs: "40%",
                   sm: "24%",
                 },
-                height: "300px",
+                height: {
+                  xs: "400px",
+                  sm: "500px",
+                },
+
                 display: "flex",
                 flexDirection: {
                   xs: "row",
                   sm: "column",
                 },
+                my: "10px",
               }}
             >
               <Box
                 sx={{
-                  backgroundImage: `url(${post?.urlToImage})`,
                   width: "100%",
-                  height: "70%",
-                  backgroundSize: "100%",
-                  objectFit: "cover",
-                  backgroundRepeat: "no-repeat",
-                  borderRadius: "8px",
+                  height: "200px",
                 }}
-              ></Box>
-              <Stack spacing={2} sx={{ height: "30%", width: "100%" }}>
-                <Typography>
+              >
+                <img
+                  src={`${post?.urlToImage}`}
+                  width="100%"
+                  height="100%"
+                  alt={post?.title}
+                  style={{
+                    borderRadius: "10px",
+                    objectFit: "cover",
+                  }}
+                />
+              </Box>
+              <Stack
+                spacing={2}
+                sx={{ height: "30%", width: "100%", padding: 1 }}
+              >
+                <Typography fontWeight="bold" sx={{ my: "10px" }}>
                   <Link
                     href={`/news/${post?.title}`}
                     underline="hover"
                     sx={{ cursor: "pointer", color: "black" }}
                   >
-                    <Typography fontWeight="bold" sx={{ my: "10px" }}>
-                      {post?.title}
-                    </Typography>
+                    {post?.title}
                   </Link>
                 </Typography>
                 <Stack spacing={1}>
@@ -121,7 +135,6 @@ function LatestPost() {
             </Box>
           ))}
         </Box>
-        <MobileView></MobileView>
       </Box>
     </ThemeProvider>
   );

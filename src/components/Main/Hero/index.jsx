@@ -41,7 +41,15 @@ function Hero() {
   return (
     <ThemeProvider theme={theme}>
       <HeroSectionWrapper>
-        <PcViewHorizontal justifyContent="space-between" height="300px">
+        <PcViewHorizontal
+          justifyContent="space-between"
+          sx={{
+            height: {
+              xs: "80vh",
+              sm: "300px",
+            },
+          }}
+        >
           <Box
             sx={{
               width: "48%",
@@ -51,12 +59,19 @@ function Hero() {
               sx={{
                 width: "100%",
                 height: "100%",
-                borderRadius: "20px",
-                backgroundImage: `url(${topHeadline?.urlToImage})`,
-                backgroundSize: "100%",
-                objectFit: "contain",
               }}
-            ></Box>
+            >
+              <img
+                src={`${topHeadline?.urlToImage}`}
+                width="100%"
+                height="100%"
+                alt={topHeadline?.title}
+                style={{
+                  borderRadius: "10px",
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
           </Box>
           <Box sx={{ width: "48%", height: "100%" }}>
             <Stack spacing={2}>
@@ -97,13 +112,20 @@ function Hero() {
             <Box
               sx={{
                 width: "100%",
-                height: "100%",
-                borderRadius: "20px",
-                backgroundImage: `url(${topHeadline?.urlToImage})`,
-                backgroundSize: "100%",
-                objectFit: "cover",
+                height: "300px",
               }}
-            ></Box>
+            >
+              <img
+                src={`${topHeadline?.urlToImage}`}
+                width="100%"
+                height="100%"
+                alt={topHeadline?.title}
+                style={{
+                  borderRadius: "10px",
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
             <Box sx={{ height: "30%", width: "100%", my: 2 }}>
               <Stack spacing={2}>
                 <Typography
