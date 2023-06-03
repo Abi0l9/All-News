@@ -33,7 +33,7 @@ const SourcePage = () => {
     if (pages) {
       setPageToShow(pages?.slice(0, 10));
     } //eslint-disable-next-line
-  }, []);
+  }, [pages]);
 
   const handlePagination = (e, value) => {
     setPage(value);
@@ -47,7 +47,7 @@ const SourcePage = () => {
   };
 
   if (!pages?.length) return null;
-  console.log(retrievedSource);
+
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ minHeight: "80vh", padding: "30px 24px" }}>
