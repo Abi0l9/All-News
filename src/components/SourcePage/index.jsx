@@ -40,6 +40,10 @@ const SourcePage = () => {
 
     const newPage = value * 10;
     setPageToShow(pages?.at(newPage));
+
+    const leftPage = value * 10 - 10;
+    const rightPage = value * 10;
+    setPageToShow(pages?.slice(leftPage, rightPage));
   };
 
   if (!pages?.length) return null;
