@@ -11,11 +11,16 @@ import {
   styled,
   TextField,
   Autocomplete,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRetrievedSources } from "../../reducers/retrievedSourceReducer";
+import { useNavigate } from "react-router-dom";
 
 const MobileViewFlex = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -42,15 +47,27 @@ const PcViewFlex = styled(Stack)(({ theme }) => ({
 
 function Header() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const sources = useSelector((store) => store.sources);
 
   const filteredSources = sources?.sources
     ?.filter((source) => source.country === "us")
-    .map((source) => source.name);
+    .map((source) => {
+      return {
+        id: source.id,
+        name: source.name,
+      };
+    });
 
   const [openSearch, setOpenSearch] = useState(false);
-  const [value, setValue] = useState("ABC News");
-  const [inputValue, setInputValue] = useState("");
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    if (value) {
+      dispatch(getRetrievedSources(value));
+      navigate("/sources/");
+    }
+  }, [value, dispatch, navigate]);
 
   const handleSearchClick = () => {
     setOpenSearch(!openSearch);
@@ -119,24 +136,25 @@ function Header() {
           </Box>
         </Toolbar>
         <Box
-          sx={{ display: openSearch ? "block" : "none", margin: "5px auto" }}
+          sx={{ display: openSearch ? "block" : "none", margin: "5px auto", width: "50%" }}
         >
-          <Autocomplete
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-            inputValue={inputValue}
-            onInputChange={(event, newInputValue) => {
-              setInputValue(newInputValue);
-              dispatch(getRetrievedSources(newInputValue));
-            }}
-            onClick={() => console.log("clicked")}
-            options={filteredSources}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} />}
-            label="Select or type a source"
-          />
+          
+          <FormControl fullWidth>
+            <InputLabel>Select your desired source from the list</InputLabel>
+            <Select
+              label="source"
+              variant="standard"
+              size="small"
+              value={value}
+              onChange={({ target }) => setValue(target.value)}
+            >
+              {filteredSources?.map((source) => (
+                <MenuItem key={source.id} value={source.id}>
+                  {source.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Box>
       </AppBar>
     </Box>

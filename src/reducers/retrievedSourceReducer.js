@@ -16,7 +16,6 @@ const { getRetrieved } = retrievedSourceSlice.actions;
 export const getRetrievedSources = (source) => {
   return async (dispatch) => {
     const data = await newsServices.getEverything(source);
-    console.log(data);
     dispatch(getRetrieved(data));
   };
 };

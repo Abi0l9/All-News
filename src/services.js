@@ -29,6 +29,7 @@ const getNewsBySources = async () => {
 
 const getEverything = async (source) => {
   const config = setConfig();
+  console.log(`${baseUrl}/everything?sources=${source}`);
   const request = await axios.get(
     `${baseUrl}/everything?sources=${source}`,
     config

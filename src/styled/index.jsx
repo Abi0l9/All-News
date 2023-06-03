@@ -123,3 +123,42 @@ export const PcViewVertical = styled(Stack)(({ theme }) => ({
     flexDirection: "column",
   },
 }));
+
+export const AllPostsWrapper = styled(Box)({
+  display: {
+    xs: "block",
+    sm: "flex",
+  },
+  flexDirection: "row",
+  justifyContent: "space-between",
+  flexWrap: "wrap",
+  gap: "5px",
+  width: "100%",
+  height: {
+    xs: "800px",
+    sm: "1000px",
+  },
+});
+
+export const PostWrapper = styled(Box)({
+  width: {
+    xs: "40%",
+    sm: "24%",
+  },
+  height: {
+    xs: "400px",
+    sm: "500px",
+  },
+
+  display: "flex",
+  flexDirection: {
+    xs: "row",
+    sm: "column",
+  },
+  my: "10px",
+});
+
+export const PostImageWrapper = styled(Box)({
+  width: "100%",
+  height: "200px",
+});
