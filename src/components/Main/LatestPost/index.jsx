@@ -5,7 +5,6 @@ import {
   ThemeProvider,
   Typography,
   createTheme,
-  styled,
 } from "@mui/material";
 import React from "react";
 import "./index.css";
@@ -20,14 +19,6 @@ const theme = createTheme({
     },
   },
 });
-
-// export const PcViewHorizontal = styled(Stack)(({ theme }) => ({
-//   display: "none",
-//   [theme.breakpoints.up("sm")]: {
-//     display: "flex",
-//     flexDirection: "row",
-//   },
-// }));
 
 function LatestPost() {
   const headlines = useSelector((store) => store.headlines);
